@@ -1,3 +1,5 @@
+const { Book } = require('./models');
+
 const express = require('express');
 const path = require('path');
 // const routes = require('./routes/index');
@@ -10,15 +12,16 @@ app.use(express.static(path.join(__dirname, 'public'), {
     index: false
 }));
 
-// app.use(express.static(path.join(__dirname, 'public'),{
-//     fallthrough: false
-// })); //tells express to serve static files from public folder
-
 //defines the route
 app.get('/', (req, res) => {
-    res.render('index');
+    res.redirect('/books');
 });
 
+//creating books route
+app.get('/books', async (req,res) => {
+    const books = await Book.findAll();
+    res.render('index', { books });
+})
 //start the http server and listen for incoming connections
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

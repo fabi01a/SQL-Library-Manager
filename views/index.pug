@@ -2,4 +2,6 @@ extends layout
 
 block content
     h1 Books 
-    p Welcome to the Library Manager!
+    
+    each book in books 
+        p=book.title

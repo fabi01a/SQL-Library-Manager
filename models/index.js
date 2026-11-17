@@ -6,10 +6,9 @@ const sequelize = new Sequelize({
     logging: false //controls whether sequelize prints sql queries in the terminal
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Database connection successful!');
-    })
-    .catch(error => {
-        console.error('Unable to connect to database:', error);
-    });
+const Book = require('./book')(sequelize);
+
+module.exports = {
+    sequelize,
+    Book    
+};
