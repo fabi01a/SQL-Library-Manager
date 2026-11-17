@@ -2,6 +2,13 @@ extends layout
 
 block content 
     h1 Update Book
+
+    if errors 
+        .error 
+            h2 Oops! Please fix the following errors: 
+            ul 
+                each error in errors 
+                    li= error 
     
     form(action=`/books/${book.id}`, method='POST')
         label(for='title') Title

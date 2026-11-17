@@ -56,16 +56,27 @@ app.get('/books/:id', async (req,res) => {
 
 //POST: update an existing book using submitted form data
 app.post('/books/:id', async (req, res) => {
-    const  book = await Book.findByPk(req.params.id); //retrieves existing book to be updated
-    const { title, author, genre, year } = req.body; //extracts values from form
+    try {
+        const  book = await Book.findByPk(req.params.id); //retrieves existing book to be updated
+        const { title, author, genre, year } = req.body; //extracts values from form
 
-    await book.update({
-        title,
-        author,
-        genre,
-        year
-    });
-    res.redirect('/books');
+        await book.update({ title, author, genre, year });
+        res.redirect('/books');
+
+    } catch (error) {
+        if(error.name === 'SequelizeValidationError') {
+            const errors = error.errors.map(err => err.message);
+            return res.status(400).render('update-book', {
+                errors,
+                book: {
+                    id: req.params.id,
+                    ...req.body
+                }
+            });
+        }
+        console.log(error)
+        res.status(500).send('Unable to update book');
+    }
 });
 
 //POST: delete a specific book from the database
