@@ -105,6 +105,11 @@ app.post('/books/:id/delete', async (req, res) => {
 });
 
 
+//handle routes that don't exist
+app.use((req,res) => {
+    res.status(400).render('page-not-found');
+});
+
 //start the http server and listen for incoming connections
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
