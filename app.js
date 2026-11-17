@@ -68,7 +68,7 @@ app.post('/books/:id', async (req, res) => {
         const  book = await Book.findByPk(req.params.id); //retrieves existing book to be updated
         
         if (!book) {
-            return res.status(400).send('Book not found');
+            return res.status(400).render('page-not-found');
         }
         
         const { title, author, genre, year } = req.body; //extracts values from form
@@ -97,7 +97,7 @@ app.post('/books/:id/delete', async (req, res) => {
     const book = await Book.findByPk(req.params.id);
 
     if(!book) {
-        return res.status(400).send('Book not found');
+        return res.status(400).render('page-not-found');
     }
 
     await book.destroy();
