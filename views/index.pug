@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Books 
-    a(href='/books/new') Create New Book
+    a.button(href='/books/new') Create New Book
     
     table 
         thread 
@@ -11,6 +11,7 @@ block content
                 th Author 
                 th Genre 
                 th Year 
+        
         tbody
             each book in books 
                 tr 

@@ -11,18 +11,22 @@ block content
                     li=error
 
     form(action='/books/new', method='POST')
-        label(for='title') Title
-        input(type='text', id='title', name='title', value=book ? book.title : '')
+        div
+            label(for='title') Title
+            input(type='text', id='title', name='title', value=book ? book.title : '')
 
-        label(for='author') Author
-        input(type='text', id='author', name='author', value=book ? book.author: '')
+        div
+            label(for='author') Author
+            input(type='text', id='author', name='author', value=book ? book.author: '')
 
-        label(for='genre') Genre
-        input(type='text', id='genre', name='genre', value=book ? book.genre: '')
+        div
+            label(for='genre') Genre
+            input(type='text', id='genre', name='genre', value=book ? book.genre: '')
 
-        label(for='year') Year
-        input(type='number', id='year', name='year', value=book ? book.year: '')
+        div
+            label(for='year') Year
+            input(type='number', id='year', name='year', value=book ? book.year: '')
 
-        button(type='submit') Create New Book 
+        input(type='submit', value='Create New Book') 
 
-    a(href='/books') Cancel
+    a.button.cancel(href='/books') Cancel

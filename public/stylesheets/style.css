@@ -17,11 +17,17 @@ a {
 a.button, input[type=submit] {
   color: white;
   background: #019875;
+  display: inline-block;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   padding: 10px 14px 12px;
   font-size: 14px;
   border-radius: 2px;
+  margin-bottom: 20px;
   cursor: pointer;
+}
+
+a.button.cancel {
+  margin-left: 140px;
 }
 
 form a.button, input[type=submit] {
@@ -87,7 +93,8 @@ input {
   transition: 0.4s;
 }
 
-input[type=text] {
+input[type=text],
+input[type=number] {
   margin-left: 7px;
   width: 300px;
 }
