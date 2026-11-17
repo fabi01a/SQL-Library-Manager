@@ -24,6 +24,23 @@ app.get('/books', async (req,res) => {
     res.render('index', { books });
 });
 
+//display form for creating a new book
+app.get('/books/new', (req,res) => {
+    res.render('new-book');
+})
+
+//insert a new record from display form
+app.post('/books/new', async (req,res) => {
+    const { title, author, genre, year } = req.body;
+    await Book.create({
+        title,
+        author,
+        genre,
+        year
+    });
+    res.redirect('/books');
+})
+
 //dynamic books route
 app.get('/books/:id', async (req,res) => {
     const book = await Book.findByPk(req.params.id);
@@ -49,6 +66,7 @@ app.post('/books/:id', async (req, res) => {
     
     res.redirect('/books');
 });
+
 
 //start the http server and listen for incoming connections
 app.listen(3000, () => {
