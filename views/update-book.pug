@@ -1,7 +1,21 @@
 extends layout 
 
 block content 
-    h1= book.title 
-    p= book.author 
-    p= book.genre 
-    p= book.year
+    h1 Update Book
+    
+    form(action='/books/${book.id}', method='POST')
+        label(for='title') Title
+        input(type='text', id='title', name='title', value=book.title)
+
+        label(for='author') Author 
+        input(type='text', id='author', name='author', value=book.author)
+
+        label(for='genre') Genre
+        input(type='text', id='genre', name='genre', value=book.genre)
+
+        label(for='year') Year 
+        input(type='number', id='year', name='year', value=book.year)
+
+        button(type='submit') Update Book 
+    
+    a(href='/books') Cancel
