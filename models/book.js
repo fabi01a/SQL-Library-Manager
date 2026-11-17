@@ -4,11 +4,21 @@ module.exports = (sequelize) => { //exporting a function that accepts a sequeliz
     const Book = sequelize.define('Book', {
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                    msg: 'Please provide a title'
+                }
+            }
         },
         author: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                    msg: 'Please provide an author'
+                }
+            }
         },
         genre: {
             type: DataTypes.STRING

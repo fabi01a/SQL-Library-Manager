@@ -31,15 +31,22 @@ app.get('/books/new', (req,res) => {
 
 //POST: Create a new book using submitted form data
 app.post('/books/new', async (req,res) => {
-    const { title, author, genre, year } = req.body;
-    await Book.create({
-        title,
-        author,
-        genre,
-        year
-    });
-    res.redirect('/books');
-})
+    try {
+        const { title, author, genre, year } = req.body;
+        await Book.create({ title,author,genre,year });
+        res.redirect('/books');
+    } catch (error) {
+        if(error.name === 'SequelizeValidationError') {
+            const errors = error.errors.map(err => err.message);
+            return res.status(400).render('new-book', {
+                errors,
+                book: req.body
+            });
+        }
+        console.log(error)
+        res.status(500).send('Unable to create book');
+    }
+});
 
 //GET: retrieve a specific book by ID and display its edit form
 app.get('/books/:id', async (req,res) => {

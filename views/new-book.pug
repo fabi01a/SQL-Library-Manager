@@ -3,18 +3,25 @@ extends layout
 block content 
     h1 New Book 
 
+    if errors 
+        div.error 
+            h2 Opps! Please fix the following errors: 
+            ul 
+                each error in errors 
+                    li=error
+
     form(action='/books/new', method='POST')
         label(for='title') Title
-        input(type='text', id='title', name='title')
+        input(type='text', id='title', name='title', value=book ? book.title : '')
 
         label(for='author') Author
-        input(type='text', id='author', name='author')
+        input(type='text', id='author', name='author', value=book ? book.author: '')
 
         label(for='genre') Genre
-        input(type='text', id='genre', name='genre')
+        input(type='text', id='genre', name='genre', value=book ? book.genre: '')
 
         label(for='year') Year
-        input(type='number', id='year', name='year')
+        input(type='number', id='year', name='year', value=book ? book.year: '')
 
         button(type='submit') Create New Book 
 
