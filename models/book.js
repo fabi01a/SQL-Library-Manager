@@ -7,7 +7,7 @@ module.exports = (sequelize) => { //exporting a function that accepts a sequeliz
             allowNull: false,
             validate: {
                 notEmpty: {
-                    msg: 'Please provide a title'
+                    msg: 'Title is required'
                 }
             }
         },
@@ -16,7 +16,7 @@ module.exports = (sequelize) => { //exporting a function that accepts a sequeliz
             allowNull: false,
             validate: {
                 notEmpty: {
-                    msg: 'Please provide an author'
+                    msg: 'Author is required'
                 }
             }
         },
