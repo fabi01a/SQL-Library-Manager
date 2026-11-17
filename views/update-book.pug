@@ -19,3 +19,7 @@ block content
         button(type='submit') Update Book 
     
     a(href='/books') Cancel
+
+    //delete records
+    form(action=`/books/${book.id}/delete`, method='POST')
+        button(type='submit') Delete Book

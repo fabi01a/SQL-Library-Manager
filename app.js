@@ -5,31 +5,31 @@ const path = require('path');
 // const routes = require('./routes/index');
 
 const app = express();
-app.use(express.urlencoded({ extended: false }));
 
+app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'pug'); //configuring app setting + use pug
 
 app.use(express.static(path.join(__dirname, 'public'), {
     index: false
 }));
 
-//defines the route
+//redirects homepage to the list of books
 app.get('/', (req, res) => {
     res.redirect('/books');
 });
 
-//creating books route
+//GET: retrieves all books from DB and displays them
 app.get('/books', async (req,res) => {
     const books = await Book.findAll();
     res.render('index', { books });
 });
 
-//display form for creating a new book
+//GET: display the form for creating a new book
 app.get('/books/new', (req,res) => {
     res.render('new-book');
 })
 
-//insert a new record from display form
+//POST: Create a new book using submitted form data
 app.post('/books/new', async (req,res) => {
     const { title, author, genre, year } = req.body;
     await Book.create({
@@ -41,32 +41,32 @@ app.post('/books/new', async (req,res) => {
     res.redirect('/books');
 })
 
-//dynamic books route
+//GET: retrieve a specific book by ID and display its edit form
 app.get('/books/:id', async (req,res) => {
     const book = await Book.findByPk(req.params.id);
     res.render('update-book', { book });
 });
 
-//recieving edited data when form is submitted
+//POST: update an existing book using submitted form data
 app.post('/books/:id', async (req, res) => {
-    console.log('Book ID:', req.params.id);
-    
     const  book = await Book.findByPk(req.params.id); //retrieves existing book to be updated
-    console.log('Book found:', book);
-    
     const { title, author, genre, year } = req.body; //extracts values from form
 
-    
     await book.update({
         title,
         author,
         genre,
         year
     });
-    
     res.redirect('/books');
 });
 
+//POST: delete a specific book from the database
+app.post('/books/:id/delete', async (req, res) => {
+    const book = await Book.findByPk(req.params.id);
+    await book.destroy();
+    res.redirect('/books');
+});
 
 //start the http server and listen for incoming connections
 app.listen(3000, () => {
