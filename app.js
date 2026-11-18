@@ -56,7 +56,7 @@ app.get('/books/:id', async (req,res) => {
     const book = await Book.findByPk(req.params.id);
     
     if (!book) {
-        return res.status(400).render('page-not-found');
+        return res.status(404).render('page-not-found');
     }
     res.render('update-book', { book });
 });
@@ -68,7 +68,7 @@ app.post('/books/:id', async (req, res) => {
         const  book = await Book.findByPk(req.params.id); 
         
         if (!book) {
-            return res.status(400).render('page-not-found');
+            return res.status(404).render('page-not-found');
         }
         
         const { title, author, genre, year } = req.body; 
@@ -97,7 +97,7 @@ app.post('/books/:id/delete', async (req, res) => {
     const book = await Book.findByPk(req.params.id);
 
     if(!book) {
-        return res.status(400).render('page-not-found');
+        return res.status(404).render('page-not-found');
     }
 
     await book.destroy();

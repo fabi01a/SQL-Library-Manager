@@ -92,5 +92,3 @@ Title and Author are required fields. If either is missing or empty, the applica
 | GET | `/books/:id` | Displays the edit book form |
 | POST | `/books/:id` | Updates an existing book |
 | POST | `/books/:id/delete` | Deletes a book |
-
-
