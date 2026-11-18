@@ -1,12 +1,11 @@
 const { Book } = require('./models');
-
 const express = require('express');
 const path = require('path');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.set('view engine', 'pug'); //configuring app setting + use pug
+app.set('view engine', 'pug'); 
 app.use(express.static(path.join(__dirname, 'public'), {
     index: false
 }));
@@ -28,7 +27,7 @@ app.get('/books', async (req,res) => {
 //GET: display the form for creating a new book
 app.get('/books/new', (req,res) => {
     res.render('new-book');
-})
+});
 
 
 //POST: Create a new book using submitted form data
@@ -55,6 +54,7 @@ app.post('/books/new', async (req,res) => {
 //GET: retrieve a specific book by ID and display its edit form
 app.get('/books/:id', async (req,res) => {
     const book = await Book.findByPk(req.params.id);
+    
     if (!book) {
         return res.status(400).render('page-not-found');
     }
@@ -65,13 +65,13 @@ app.get('/books/:id', async (req,res) => {
 //POST: update an existing book using submitted form data
 app.post('/books/:id', async (req, res) => {
     try {
-        const  book = await Book.findByPk(req.params.id); //retrieves existing book to be updated
+        const  book = await Book.findByPk(req.params.id); 
         
         if (!book) {
             return res.status(400).render('page-not-found');
         }
         
-        const { title, author, genre, year } = req.body; //extracts values from form
+        const { title, author, genre, year } = req.body; 
         await book.update({ title, author, genre, year });
         res.redirect('/books');
 
@@ -109,6 +109,7 @@ app.post('/books/:id/delete', async (req, res) => {
 app.use((req,res) => {
     res.status(400).render('page-not-found');
 });
+
 
 //start the http server and listen for incoming connections
 app.listen(3000, () => {
